@@ -12,6 +12,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.List;
 
+
 public class Test {
 
 	 public static void main(String[] args) throws SQLException {
@@ -19,19 +20,14 @@ public class Test {
 	
 		
 		 ApplicationContext javaContext = new AnnotationConfigApplicationContext("ru.neutrino");
-		
-		 CatDAO obj = (CatDAO) javaContext.getBean(CatDAO.class);
-		 
+	 
 		 CountryDAO country = (CountryDAO) javaContext.getBean(CountryDAO.class);
 
 		 
 		 
-		 List<CountryJPA> cat = country.showAll();
-			
-			for(CountryJPA x : cat) {
-				
+		 List<CountryJPA> obj = country.showAll();
+			for(CountryJPA x : obj) {
 				System.out.println(x.toString());
-				
 			}
 		 
 		 

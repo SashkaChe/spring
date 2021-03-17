@@ -15,13 +15,14 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.hibernate.SessionFactory;
 import org.hibernate.internal.SessionFactoryImpl;
 
 
+
 @Transactional
 @Repository 
-@PropertySource("classpath:/datasource.properties")
 public class CountryDAO {
 
 	
@@ -30,15 +31,9 @@ public class CountryDAO {
 
 	
 
-	
 	public List<CountryJPA> showAll() throws SQLException {
-
-		return sessionFactory.getCurrentSession().createQuery("from Country").list();
-		
-
+		return sessionFactory.getCurrentSession().createQuery("FROM Country", CountryJPA.class).list();
 }
 	
-	
-	
-	
+		
 }

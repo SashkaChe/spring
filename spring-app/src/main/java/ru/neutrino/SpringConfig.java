@@ -1,5 +1,6 @@
 package ru.neutrino;
 
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -12,13 +13,16 @@ import org.hibernate.criterion.Property;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.*;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBuilder;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-
+@EnableTransactionManagement
 @Configuration
 @PropertySource("classpath:/datasource.properties")
 public class SpringConfig {
@@ -26,10 +30,16 @@ public class SpringConfig {
 	@Value("${data.url}")
 	private String url;
 	
+	
+	@Bean
+	public PlatformTransactionManager txManager() {
+	return new DataSourceTransactionManager(dataSource());
+	}
+	
+	
 	@Bean
 	public DataSource dataSource() {
-		
-		
+				
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		
 		dataSource.setDriverClassName("org.postgresql.Driver");
@@ -37,42 +47,42 @@ public class SpringConfig {
 		dataSource.setUsername("postgres");
 		dataSource.setPassword("admin");
 		
-		
 		return dataSource;
 		    }
 
 	
+	
 	@Bean
 	public SessionFactory sessionFac() {
-
-		LocalSessionFactoryBean obj = new LocalSessionFactoryBean();
-     	obj.setDataSource(dataSource());
-        obj.setHibernateProperties(hibernateProperties());
-     	 
-		return obj.getObject();
+		return sessionFactory().getObject();
 		    }
-	
-	
-	
+			
 	
 	@Bean
 	public LocalSessionFactoryBean sessionFactory() {
-
+		
+		Properties hibernateProperties = new Properties();
+	    hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQL94Dialect");
+				
 		LocalSessionFactoryBean obj = new LocalSessionFactoryBean();
      	obj.setDataSource(dataSource());
-        obj.setHibernateProperties(hibernateProperties());
+        obj.setHibernateProperties(hibernateProperties);
      	 
 		return obj;
 		    }
 	
 	
-	 private final Properties hibernateProperties() {
-	        Properties hibernateProperties = new Properties();
-	        hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQL94Dialect");
 
-	        return hibernateProperties;
-	    }
-
+	@Bean
+	public JdbcTemplate jdbcTemplate() {
+		return new JdbcTemplate(dataSource());
+	}
+	
+	
+	@Bean
+	public NamedParameterJdbcTemplate namedParameterJdЬcTemplate() {
+			return new NamedParameterJdbcTemplate(dataSource()); 
+	}
 
 	
 	@Bean
@@ -96,28 +106,8 @@ return connection;
 		 
 		 return connection;
 	}
+
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	@Bean
-	public JdbcTemplate jdbcTemplate() {
-		
-		return new JdbcTemplate(dataSource());
-	}
-	
-	
-	@Bean
-	public NamedParameterJdbcTemplate namedParameterJdЬcTemplate() {
-			return new NamedParameterJdbcTemplate(dataSource()); 
-	}
 	
 	
 		}
