@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import javax.annotation.Resource;
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -33,9 +33,9 @@ public class CountryDAO {
 	private SessionFactory sessionFactory;
 
 	
-
+   @Transactional(readOnly=true)
 	public List<Country> showAll() throws SQLException {
-		return sessionFactory.getCurrentSession().createQuery("from Country c", Country.class).list();
+		return sessionFactory.getCurrentSession().createQuery("from Country").list();
 }
 	
 
