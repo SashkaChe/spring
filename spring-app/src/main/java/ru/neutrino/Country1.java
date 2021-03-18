@@ -8,7 +8,7 @@ import lombok.Setter;
 @Component() 
 @Getter
 @Setter
-public class Country {
+public class Country1 {
 
 	
 	private int id;

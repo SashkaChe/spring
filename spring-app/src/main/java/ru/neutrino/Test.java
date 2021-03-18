@@ -25,8 +25,8 @@ public class Test {
 
 		 
 		 
-		 List<CountryJPA> obj = country.showAll();
-			for(CountryJPA x : obj) {
+		 List<Country> obj = country.showAll();
+			for(Country x : obj) {
 				System.out.println(x.toString());
 			}
 		 

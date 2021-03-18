@@ -65,7 +65,7 @@ public class CatDAO {
 	
 	
 	
-	public List<Country> myCountry() throws SQLException {
+	public List<Country1> myCountry() throws SQLException {
 
 		return jdbc.query("select * from Country", new CountryMapper());
 }

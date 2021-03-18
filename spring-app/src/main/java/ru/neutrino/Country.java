@@ -13,30 +13,20 @@ import lombok.Setter;
 @Entity
 @Table(name="Country")
 @Setter
-public class CountryJPA implements Serializable {
+@Getter
+public class Country implements Serializable {
 
-	
-	private long id;
-	private String country;
-	
-	
 	@Id
     @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	public Long getId () { 
-		return id; 
-	}	
-	
+	private long id;
 	
 	@Column(name="country")
-	public String getCountry () { 
-		return country; 
-	}
-
-
+	private String country;
+	
 	@Override
 	public String toString() {
-		return "CountryJPA [id=" + id + ", country=" + country + "]";
+	return "Country [id=" + id + ", country=" + country + "]";
 	}	
 	
 	

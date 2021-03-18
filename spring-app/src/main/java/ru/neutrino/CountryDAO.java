@@ -22,7 +22,7 @@ import org.hibernate.internal.SessionFactoryImpl;
 
 
 @Transactional
-@Repository 
+@Repository("dao") 
 public class CountryDAO {
 
 	
@@ -31,9 +31,10 @@ public class CountryDAO {
 
 	
 
-	public List<CountryJPA> showAll() throws SQLException {
-		return sessionFactory.getCurrentSession().createQuery("FROM Country", CountryJPA.class).list();
+	public List<Country> showAll() throws SQLException {
+		return sessionFactory.getCurrentSession().createQuery("from Country c", Country.class).list();
 }
 	
+
 		
 }

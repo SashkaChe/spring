@@ -10,7 +10,7 @@ public class CityJPA {
 	
 	private int id;
 	private String city;
-	private CountryJPA country;
+	private Country country;
 	
 	
 }
