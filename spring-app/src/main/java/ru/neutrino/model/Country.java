@@ -1,6 +1,8 @@
 package ru.neutrino.model;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -22,6 +24,11 @@ public class Country implements Serializable {
 	
 	@Column(name="country")
 	private String country;
+	
+	@OneToMany(mappedBy = "country", cascade=CascadeType.ALL, orphanRemoval=true) 
+	private Set<City> contactTelDetails = new HashSet<City>(); 
+	
+	
 	
 	@Override
 	public String toString() {

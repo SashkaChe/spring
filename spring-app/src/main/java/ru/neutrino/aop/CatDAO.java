@@ -72,7 +72,7 @@ public class CatDAO {
 	
 	
 	
-	public List<City> myCity() throws SQLException {
+	public List<City1> myCity() throws SQLException {
 
 		return jdbc.query("SELECT City.id, City.city, Country.country FROM City, Country where City.country = Country.id", new CityMapper());
 

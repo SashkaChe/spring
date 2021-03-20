@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import ru.neutrino.model.City;
 import ru.neutrino.model.Country;
 
 import org.hibernate.SessionFactory;
@@ -38,6 +39,11 @@ public class CountryDAO {
 		return sessionFactory.getCurrentSession().createQuery("from Country").list();
 }
 	
+   
+   @Transactional(readOnly=true)
+	public List<City> showCity() throws SQLException {
+		return sessionFactory.getCurrentSession().createQuery("from City").list();
+}
 
 		
 }

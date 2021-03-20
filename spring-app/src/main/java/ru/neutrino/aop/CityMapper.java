@@ -10,14 +10,14 @@ import org.springframework.jdbc.core.ResultSetExtractor;
 public class CityMapper implements ResultSetExtractor<List> {
 
 	
-	   public List<City> extractData(ResultSet rs)  throws SQLException, DataAccessException {
+	   public List<City1> extractData(ResultSet rs)  throws SQLException, DataAccessException {
 	      
 		   
-		   List<City> cityname = new ArrayList<>();
+		   List<City1> cityname = new ArrayList<>();
 		   
 		  while (rs.next()) {
 	          
-	        	City obj = new City();
+	        	City1 obj = new City1();
 	        	
 	        	
 	        	obj.setId(rs.getInt("id"));

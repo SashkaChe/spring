@@ -8,7 +8,7 @@ import lombok.Setter;
 @Component() 
 @Getter
 @Setter
-public class City {
+public class City1 {
 
 	
 	private int id;

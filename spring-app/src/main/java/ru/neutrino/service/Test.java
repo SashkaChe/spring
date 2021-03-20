@@ -7,6 +7,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import ru.neutrino.dao.CountryDAO;
+import ru.neutrino.model.City;
 import ru.neutrino.model.Country;
 
 import org.springframework.aop.support.DefaultPointcutAdvisor;
@@ -28,8 +29,8 @@ public class Test {
 		 CountryDAO country = (CountryDAO) javaContext.getBean(CountryDAO.class);
 
 		 
-		 List<Country> obj = country.showAll();
-			for(Country x : obj) {
+		 List<City> obj = country.showCity();
+			for(City x : obj) {
 				System.out.println(x.toString());
 			}
 		 
