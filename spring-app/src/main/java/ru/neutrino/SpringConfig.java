@@ -64,7 +64,7 @@ public class SpringConfig {
 		
 		Properties hibernateProperties = new Properties();
 	    hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQL94Dialect");
-				
+	   				
 		LocalSessionFactoryBean obj = new LocalSessionFactoryBean();
      	obj.setDataSource(dataSource());
      	obj.setPackagesToScan("ru.neutrino"); 

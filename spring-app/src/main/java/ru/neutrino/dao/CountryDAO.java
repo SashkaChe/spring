@@ -17,8 +17,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import ru.neutrino.model.City;
-import ru.neutrino.model.Country;
+import ru.neutrino.model.*;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.internal.SessionFactoryImpl;
@@ -36,13 +35,50 @@ public class CountryDAO {
 	
    @Transactional(readOnly=true)
 	public List<Country> showAll() throws SQLException {
-		return sessionFactory.getCurrentSession().createQuery("from Country").list();
-}
+		return sessionFactory.getCurrentSession().createQuery("select distinct c from Country c left join fetch c.res").list();
+		
+	}
 	
    
+ 
+   @Transactional(readOnly=true)
+  	public Country showId(long id) throws SQLException {
+  		return (Country) sessionFactory.getCurrentSession().createQuery("select c from Country c left join fetch c.res where c.id = :id").setParameter("id", id).uniqueResult();
+  		
+  	}
+   
+   
+   @Transactional(readOnly=true)
+ 	public City showCity(int id) throws SQLException {
+ 		return (City) sessionFactory.getCurrentSession().createQuery("select c from City c where c.id = :id").setParameter("id", id).uniqueResult();
+ 		
+ 	}
+   
+   
+   
+ 	public Country save(Country obj) throws SQLException {
+ 		 sessionFactory.getCurrentSession().saveOrUpdate(obj);
+ 		 return obj;
+ 	}
+  
+ 	public void delete(Country obj) { 
+ 	sessionFactory.getCurrentSession().delete(obj); 
+ 	 	}
+ 	
+ 	
+ 
+	
+ 	
+ 	
+ 	public void delete2(City obj) { 
+ 	 	sessionFactory.getCurrentSession().delete(obj); 
+ 	 	 	}
+ 	
+   
+ 	
    @Transactional(readOnly=true)
 	public List<City> showCity() throws SQLException {
-		return sessionFactory.getCurrentSession().createQuery("from City").list();
+		return sessionFactory.getCurrentSession().createQuery("select c from City c join fetch c.country t").list();
 }
 
 		
