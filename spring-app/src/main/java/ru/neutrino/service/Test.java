@@ -30,8 +30,56 @@ public class Test {
 	 
 		 CountryDAO country = (CountryDAO) javaContext.getBean(CountryDAO.class);
 
+	
+		
+	 Country obj = new Country();
+	 obj.setCountry("ОАЭ");
+
 		 
-		 City obj = country.showCity(1);
+	 obj.getRes().add(country.showRes(1));
+	 obj.getRes().add(country.showRes(2));
+	 
+	
+	 	 
+	 City objcity = new City();
+	 objcity.setCity("Абу-Даби");
+	 objcity.setCountry(obj);
+	 obj.getCity().add(objcity);
+	 
+	 
+	 country.save(obj);
+		
+		
+	 List<Country> obj3 = country.showAll();
+		for (Country x : obj3) {
+		System.out.println(x);
+	 
+		for(Res y : x.getRes()) {
+			System.out.println(y.getName());
+			}
+		}
+		 
+		 
+	/*	
+	
+	
+		 
+		 
+		 
+		  Country obj = country.showId(9);
+		 country.delete(obj);
+
+		 
+		 List<Country> obj2 = country.showAll();
+			for (Country x : obj2) {
+			System.out.println(x);
+		
+			}
+		 
+		 
+		 
+
+City obj = country.showCity(1);
 		 country.delete2(obj);
 		 
 		 
@@ -39,40 +87,7 @@ public class Test {
 			for(City x : obj2) {
 				System.out.println(x);
 			}	
-		 
-		 
-	//	 System.out.println(obj);
-		
-		 
-		 
-	/*	
-		 Country obj = new Country();
-		 obj.setCountry("ОАЭ2");
-		 
-		 Res objres = new Res();
-		 objres.setName("Нефть");
-		 
-		 obj.getRes().add(objres);
-		 
-		 
-		 
-		 City objcity = new City();
-		 objcity.setCity("Абу-Даби");
-		 objcity.setCountry(obj);
-		 
-		 obj.getCity().add(objcity);
-		 
-		 
-		 country.save(obj);
-		 
-		 
-	*/	 
-		 
-		 
-		 
-			 /*
-			  * 
-			  *  
+
 		 
 		 
 		  List<Country> obj2 = country.showAll();

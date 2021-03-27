@@ -1,5 +1,6 @@
 package ru.neutrino;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -17,6 +18,7 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBuilder;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -30,11 +32,13 @@ public class SpringConfig {
 	@Value("${data.url}")
 	private String url;
 	
-	
-	@Bean
-	public PlatformTransactionManager txManager() {
-	return new DataSourceTransactionManager(dataSource());
+
+	@Bean 
+	public PlatformTransactionManager transactionManager() throws IOException {
+	return new HibernateTransactionManager(sessionFac()); 
 	}
+	
+
 	
 	
 	@Bean

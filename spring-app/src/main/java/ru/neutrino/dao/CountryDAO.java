@@ -36,16 +36,21 @@ public class CountryDAO {
    @Transactional(readOnly=true)
 	public List<Country> showAll() throws SQLException {
 		return sessionFactory.getCurrentSession().createQuery("select distinct c from Country c left join fetch c.res").list();
-		
-	}
+			}
 	
    
  
    @Transactional(readOnly=true)
   	public Country showId(long id) throws SQLException {
   		return (Country) sessionFactory.getCurrentSession().createQuery("select c from Country c left join fetch c.res where c.id = :id").setParameter("id", id).uniqueResult();
-  		
   	}
+   
+   
+   @Transactional(readOnly=true)
+  	public Res showRes(long id) throws SQLException {
+  		return (Res) sessionFactory.getCurrentSession().createQuery("select c from Res c where c.id = :id").setParameter("id", id).uniqueResult();
+  	}
+   
    
    
    @Transactional(readOnly=true)
@@ -65,11 +70,8 @@ public class CountryDAO {
  	sessionFactory.getCurrentSession().delete(obj); 
  	 	}
  	
- 	
- 
-	
- 	
- 	
+
+ 	@Transactional
  	public void delete2(City obj) { 
  	 	sessionFactory.getCurrentSession().delete(obj); 
  	 	 	}
