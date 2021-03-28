@@ -41,13 +41,7 @@ public class CatDAO {
 		
 	@Autowired 
 	private JdbcTemplate jdbc;
-	
-	@Autowired
-	private Connection connection;	
-	
-	@Autowired 
-	private NamedParameterJdbcTemplate namedParameterJdЬcTemplate;
-	
+
 	@Value("${data.username}")
 	private String username;
 	
@@ -100,18 +94,6 @@ public class CatDAO {
 	
 	
 	
-	public void update2(Integer id, String name, Integer age, String color) throws SQLException {
-		
-		Map<String, Object> obj = new HashMap<>();
-		
-		obj.put("id", id);
-		obj.put("name1", name);
-		obj.put("age", age);
-		obj.put("color", color);
-				
-		
-		namedParameterJdЬcTemplate.update("update Cat set name= :name1, age= :age, color= :color where id= :id", obj);		
-	}
 	
 	
 	public void update(int id) throws SQLException {

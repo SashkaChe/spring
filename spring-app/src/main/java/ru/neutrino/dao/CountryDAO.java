@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,54 +35,50 @@ public class CountryDAO {
 
 	
    @Transactional(readOnly=true)
-	public List<Country> showAll() throws SQLException {
+	public List<Country> showCountry() throws SQLException {
 		return sessionFactory.getCurrentSession().createQuery("select distinct c from Country c left join fetch c.res").list();
 			}
 	
    
  
    @Transactional(readOnly=true)
-  	public Country showId(long id) throws SQLException {
+  	public Country showCountryId(long id) throws SQLException {
   		return (Country) sessionFactory.getCurrentSession().createQuery("select c from Country c left join fetch c.res where c.id = :id").setParameter("id", id).uniqueResult();
   	}
+
    
-   
-   @Transactional(readOnly=true)
-  	public Res showRes(long id) throws SQLException {
-  		return (Res) sessionFactory.getCurrentSession().createQuery("select c from Res c where c.id = :id").setParameter("id", id).uniqueResult();
-  	}
-   
-   
-   
-   @Transactional(readOnly=true)
- 	public City showCity(int id) throws SQLException {
- 		return (City) sessionFactory.getCurrentSession().createQuery("select c from City c where c.id = :id").setParameter("id", id).uniqueResult();
- 		
- 	}
-   
-   
-   
- 	public Country save(Country obj) throws SQLException {
+ 	public Country saveCountry(Country obj) throws SQLException {
  		 sessionFactory.getCurrentSession().saveOrUpdate(obj);
  		 return obj;
  	}
   
- 	public void delete(Country obj) { 
+ 	public void deleteCountry(Country obj) { 
  	sessionFactory.getCurrentSession().delete(obj); 
  	 	}
  	
 
- 	@Transactional
- 	public void delete2(City obj) { 
- 	 	sessionFactory.getCurrentSession().delete(obj); 
- 	 	 	}
- 	
    
  	
    @Transactional(readOnly=true)
 	public List<City> showCity() throws SQLException {
 		return sessionFactory.getCurrentSession().createQuery("select c from City c join fetch c.country t").list();
 }
+   
+   @Transactional(readOnly=true)
+	public City showCityId(int id) throws SQLException {
+		return (City) sessionFactory.getCurrentSession().createQuery("select c from City c where c.id = :id").setParameter("id", id).uniqueResult();
+		
+	}
+   
+   public City saveCity(City obj) throws SQLException {
+		 sessionFactory.getCurrentSession().saveOrUpdate(obj);
+		 return obj;
+	}
+   
+   @Transactional
+	public void deleteCity(City obj) { 
+	 	sessionFactory.getCurrentSession().delete(obj); 
+	 	 	}
 
 		
 }

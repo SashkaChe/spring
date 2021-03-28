@@ -32,6 +32,15 @@ public class SpringConfig {
 	@Value("${data.url}")
 	private String url;
 	
+	@Value("${data.username}")
+	private String username;
+	
+	@Value("${data.password}")
+	private String password;
+	
+	@Value("${data.driver}")
+	private String driver;
+	
 
 	@Bean 
 	public PlatformTransactionManager transactionManager() throws IOException {
@@ -46,10 +55,10 @@ public class SpringConfig {
 				
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		
-		dataSource.setDriverClassName("org.postgresql.Driver");
+		dataSource.setDriverClassName(driver);
 		dataSource.setUrl(url);
-		dataSource.setUsername("postgres");
-		dataSource.setPassword("admin");
+		dataSource.setUsername(username);
+		dataSource.setPassword(password);
 		
 		return dataSource;
 		    }
@@ -78,46 +87,17 @@ public class SpringConfig {
 		    }
 	
 	
-
 	@Bean
 	public JdbcTemplate jdbcTemplate() {
-		return new JdbcTemplate(dataSource());
-	}
-	
-	
-	@Bean
-	public NamedParameterJdbcTemplate namedParameterJdЬcTemplate() {
-			return new NamedParameterJdbcTemplate(dataSource()); 
-	}
-
-	
-	@Bean
-	public Connection connect() {
+	return new JdbcTemplate(dataSource());
+		}	
 		
-		 Connection connection = null;
-		
-		try {
-			Class.forName("org.postgresql.Driver");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-		 try {
-			connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/testsql", "postgres", "admin");
-	
-return connection;
-
-		} catch (SQLException e) {
-			e.printStackTrace();		
-	}
-		 
-		 return connection;
-	}
 
 	
+}
 	
-	
-		}
 
+	
 
 
 
