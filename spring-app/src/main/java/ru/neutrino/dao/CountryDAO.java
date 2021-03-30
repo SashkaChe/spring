@@ -29,7 +29,7 @@ import org.hibernate.internal.SessionFactoryImpl;
 @Repository 
 public class CountryDAO {
 
-	
+
 	@Resource
 	private SessionFactory sessionFactory;
 

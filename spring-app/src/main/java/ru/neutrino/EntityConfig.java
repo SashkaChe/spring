@@ -2,6 +2,7 @@ package ru.neutrino;
 
 import java.util.Properties;
 
+import javax.annotation.Resource;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
@@ -9,6 +10,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
@@ -23,34 +26,18 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 @Configuration
 @PropertySource("classpath:/datasource.properties")
-@ComponentScan(basePackages = "ru.neutrino.dao")
+@ComponentScan(basePackages = "ru.neutrino")
+@Import(SpringConfig.class)
 public class EntityConfig {
 
-	@Value("${data.url}")
-	private String url;
-	
-	@Value("${data.username}")
-	private String username;
-	
-	@Value("${data.password}")
-	private String password;
-	
-	@Value("${data.driver}")
-	private String driver;
-	
-	
-	@Bean
-	public DataSource dataSource() {
-				
-		DriverManagerDataSource dataSource = new DriverManagerDataSource();
-		
-		dataSource.setDriverClassName(driver);
-		dataSource.setUrl(url);
-		dataSource.setUsername(username);
-		dataSource.setPassword(password);
-		
-		return dataSource;
-		    }
+	@Resource
+	private DataSource dataSource;
+
+	@Bean 
+	public PlatformTransactionManager transactionManager() { 
+	return new JpaTransactionManager(entityFactory());
+	}
+
 	
 	@Bean 
 	public JpaVendorAdapter jpaVendorAdapter() { 
@@ -58,13 +45,8 @@ public class EntityConfig {
 }
 	
 	
-	@Bean 
-	public PlatformTransactionManager transactionManager() { 
-	return new JpaTransactionManager(entityFactory());
-	}
-
-	
 	@Bean
+	@Primary
 	public EntityManagerFactory entityFactory() {
 		
 		
@@ -73,11 +55,10 @@ public class EntityConfig {
 
         LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean(); 
         factoryBean.setPackagesToScan("ru.neutrino"); 
-        factoryBean.setDataSource(dataSource()); 
-        factoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter()); 
+        factoryBean.setDataSource(dataSource); 
         factoryBean.setJpaProperties(hibernateProperties); 
         factoryBean.setJpaVendorAdapter(jpaVendorAdapter()); 
-    	factoryBean.afterPropertiesSet(); 
+        factoryBean.afterPropertiesSet(); 
       
         return factoryBean.getNativeEntityManagerFactory(); 
 

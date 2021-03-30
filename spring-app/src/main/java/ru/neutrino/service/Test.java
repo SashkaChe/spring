@@ -28,8 +28,7 @@ public class Test {
 
 	 public static void main(String[] args) throws SQLException {
 	     
-		 ApplicationContext javaContextCountryDAO = new AnnotationConfigApplicationContext(SpringConfig.class);
-		 CountryDAO objdao2 = (CountryDAO) javaContextCountryDAO.getBean(CountryDAO.class);
+		
 		
 		 ApplicationContext javaContext = new AnnotationConfigApplicationContext(EntityConfig.class);
 		 EntityDAO objdao = (EntityDAO) javaContext.getBean(EntityDAO.class);

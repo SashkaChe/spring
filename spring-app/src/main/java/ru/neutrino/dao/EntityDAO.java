@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.stereotype.Repository;
@@ -14,7 +15,7 @@ import ru.neutrino.model.Country;
 import ru.neutrino.model.Planet;
 
 @Transactional
-@Repository 
+@Repository
 public class EntityDAO {
 	
 	@PersistenceContext

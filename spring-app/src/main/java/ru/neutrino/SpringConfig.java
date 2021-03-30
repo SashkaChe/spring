@@ -7,6 +7,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
+import javax.annotation.Resource;
 import javax.sql.*;
 
 import org.hibernate.SessionFactory;
@@ -29,42 +30,18 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @PropertySource("classpath:/datasource.properties")
 public class SpringConfig {
 
-	@Value("${data.url}")
-	private String url;
 	
-	@Value("${data.username}")
-	private String username;
 	
-	@Value("${data.password}")
-	private String password;
+	@Resource
+	private DataSource dataSource;
 	
-	@Value("${data.driver}")
-	private String driver;
-	
+		
 
 	@Bean 
 	public PlatformTransactionManager transactionManager() throws IOException {
 	return new HibernateTransactionManager(sessionFac()); 
 	}
-	
 
-	
-	
-	@Bean
-	public DataSource dataSource() {
-				
-		DriverManagerDataSource dataSource = new DriverManagerDataSource();
-		
-		dataSource.setDriverClassName(driver);
-		dataSource.setUrl(url);
-		dataSource.setUsername(username);
-		dataSource.setPassword(password);
-		
-		return dataSource;
-		    }
-
-	
-	
 	@Bean
 	public SessionFactory sessionFac() {
 		return sessionFactory().getObject();
@@ -79,7 +56,7 @@ public class SpringConfig {
 	    hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQL94Dialect");
 	   				
 		LocalSessionFactoryBean obj = new LocalSessionFactoryBean();
-     	obj.setDataSource(dataSource());
+     	obj.setDataSource(dataSource);
      	obj.setPackagesToScan("ru.neutrino"); 
         obj.setHibernateProperties(hibernateProperties);
      	 
@@ -89,7 +66,7 @@ public class SpringConfig {
 	
 	@Bean
 	public JdbcTemplate jdbcTemplate() {
-	return new JdbcTemplate(dataSource());
+	return new JdbcTemplate(dataSource);
 		}	
 		
 
