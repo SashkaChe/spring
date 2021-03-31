@@ -26,8 +26,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 @Configuration
 @PropertySource("classpath:/datasource.properties")
-@ComponentScan(basePackages = "ru.neutrino")
-@Import(SpringConfig.class)
+@Import({SpringConfig.class, DataConfig.class })
 public class EntityConfig {
 
 	@Resource

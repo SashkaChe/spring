@@ -42,7 +42,7 @@ public class Planet implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Planet [id=" + id + ", planet=" + planet + "]";
+		return "Planet id=" + id + ", planet=" + planet;
 	}
 	
 	

@@ -35,7 +35,7 @@ public class Sputnik {
 
 	@Override
 	public String toString() {
-		return "Sputnik [id=" + id + ", sputnik=" + sputnik + "]";
+		return "Sputnik id=" + id + ", sputnik=" + sputnik + " planet=" + planet.getPlanet();
 	}
 	
 	
