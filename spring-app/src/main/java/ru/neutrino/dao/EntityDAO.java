@@ -17,7 +17,7 @@ import ru.neutrino.model.Planet;
 import ru.neutrino.model.Sputnik;
 
 @Transactional
-@Repository("dao")
+@Repository
 public class EntityDAO {
 	
 	@PersistenceContext
@@ -44,17 +44,21 @@ public class EntityDAO {
 			}
 	
 	
-
+	@Transactional
 	public Planet savePlanet(Planet planet) { 
 					
-		if ((Integer) planet.getId() == null) { 
+		
+		if (planet.getId() == 0) { 
 		 System.out.println("Запись");
 			entityManager.persist(planet);
+			entityManager.flush();
+			
 		}
 		
 		else { 
 			System.out.println("Обновление");
 			entityManager.merge(planet); 
+		    entityManager.flush();
 		}
 		return planet; 
 	

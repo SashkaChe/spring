@@ -32,23 +32,35 @@ public class Test {
 		
 		
 			
-		 ApplicationContext javaContext = new AnnotationConfigApplicationContext("ru.neutrino");
+		 ApplicationContext javaContext = new AnnotationConfigApplicationContext(EntityConfig.class);
 		 
-		 EntityDAO objdao = (EntityDAO) javaContext.getBean("dao", EntityDAO.class);
+		// ApplicationContext javaContext = new AnnotationConfigApplicationContext("ru.neutrino");
+		 
+		 EntityDAO objdao = (EntityDAO) javaContext.getBean(EntityDAO.class);
 		 CountryDAO objdao2 = (CountryDAO) javaContext.getBean(CountryDAO.class);
 
+		
+		 Planet obj = objdao.showPlanetId(10).get(0);
+		 
+		 obj.setPlanet("Новая планета");
+		 
+		 objdao.savePlanet(obj);
+		 
 		 /*
+		  * 
+		  * 
+		 
 		 Planet obj = new Planet();
 		 obj.setPlanet("Планета");
 		 objdao.savePlanet(obj);
+		 
 		
-		*/
 		 Planet obj = objdao.showPlanetId(1).get(0);
 		 
 		 obj.setPlanet("1111");
 		 
 		 objdao.savePlanet(obj);
-		 
+		 */
 		 
 		 
 		 for (Planet x : objdao.showPlanet()) {

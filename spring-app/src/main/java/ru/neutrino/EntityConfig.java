@@ -27,6 +27,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @PropertySource("classpath:/datasource.properties")
 @Import({SpringConfig.class, DataConfig.class })
+@ComponentScan(basePackages = "ru.neutrino")
 public class EntityConfig {
 
 	@Resource
@@ -47,11 +48,11 @@ public class EntityConfig {
 	@Bean
 	@Primary
 	public EntityManagerFactory entityFactory() {
-		
+	
 		
 		Properties hibernateProperties = new Properties();
 	    hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQL94Dialect");
-
+	    
         LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean(); 
         factoryBean.setPackagesToScan("ru.neutrino"); 
         factoryBean.setDataSource(dataSource); 
