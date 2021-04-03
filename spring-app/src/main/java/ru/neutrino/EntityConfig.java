@@ -23,6 +23,8 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import ru.neutrino.service.ServicePlanet;
+
 @EnableTransactionManagement
 @Configuration
 @PropertySource("classpath:/datasource.properties")
@@ -43,7 +45,7 @@ public class EntityConfig {
 	public JpaVendorAdapter jpaVendorAdapter() { 
 	return new HibernateJpaVendorAdapter(); 
 }
-	
+			
 	
 	@Bean
 	@Primary

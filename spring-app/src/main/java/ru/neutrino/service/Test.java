@@ -18,6 +18,8 @@ import ru.neutrino.model.Sputnik;
 
 import org.springframework.aop.support.DefaultPointcutAdvisor;
 import org.springframework.aop.support.NameMatchMethodPointcut;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -33,22 +35,15 @@ public class Test {
 		
 			
 		 ApplicationContext javaContext = new AnnotationConfigApplicationContext(EntityConfig.class);
-		 
-		// ApplicationContext javaContext = new AnnotationConfigApplicationContext("ru.neutrino");
-		 
-		 EntityDAO objdao = (EntityDAO) javaContext.getBean(EntityDAO.class);
-		 CountryDAO objdao2 = (CountryDAO) javaContext.getBean(CountryDAO.class);
-
+		 ServicePlanet sevplanet = (ServicePlanet) javaContext.getBean(ServicePlanet.class);
 		
-		 Planet obj = objdao.showPlanetId(10).get(0);
-		 
-		 obj.setPlanet("Новая планета");
-		 
-		 objdao.savePlanet(obj);
+		 sevplanet.showallPlanet();
 		 
 		 /*
 		  * 
 		  * 
+		  * 
+		  objdao.deletePlanet(objdao.showPlanetId(10).get(0));
 		 
 		 Planet obj = new Planet();
 		 obj.setPlanet("Планета");
@@ -60,12 +55,13 @@ public class Test {
 		 obj.setPlanet("1111");
 		 
 		 objdao.savePlanet(obj);
-		 */
-		 
+		 		 
 		 
 		 for (Planet x : objdao.showPlanet()) {
 			System.out.println(x);
-		}
+			}
+			*/
+		
 		
 		
 		

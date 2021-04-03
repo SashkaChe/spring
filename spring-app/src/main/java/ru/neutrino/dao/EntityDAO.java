@@ -44,25 +44,33 @@ public class EntityDAO {
 			}
 	
 	
-	@Transactional
+
 	public Planet savePlanet(Planet planet) { 
 					
 		
 		if (planet.getId() == 0) { 
 		 System.out.println("Запись");
 			entityManager.persist(planet);
-			entityManager.flush();
+	
 			
 		}
 		
 		else { 
 			System.out.println("Обновление");
 			entityManager.merge(planet); 
-		    entityManager.flush();
+		
 		}
 		return planet; 
 	
 	}
 	
+	
+	
+	
+	
+	public void deletePlanet(Planet planet) { 
+		Planet mergedPlanet = entityManager.merge(planet); 
+		entityManager.remove(mergedPlanet);
+	}
 
 }
