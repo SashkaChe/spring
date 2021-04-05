@@ -2,14 +2,11 @@ package ru.neutrino.service;
 
 import java.sql.SQLException;
 
-import javax.annotation.Resource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import ru.neutrino.dao.EntityDAO;
 import ru.neutrino.model.Planet;
-import ru.neutrino.repo.PlanetRepo;
 
 @Component
 public class ServicePlanet {
