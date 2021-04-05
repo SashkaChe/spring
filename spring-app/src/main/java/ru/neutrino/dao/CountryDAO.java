@@ -3,6 +3,7 @@ package ru.neutrino.dao;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
@@ -23,11 +24,13 @@ import ru.neutrino.model.*;
 import org.hibernate.SessionFactory;
 import org.hibernate.internal.SessionFactoryImpl;
 
+import org.springframework.data.repository.*; 
+
 
 
 @Transactional
 @Repository 
-public class CountryDAO {
+public class CountryDAO  {
 
 
 	@Resource
@@ -79,6 +82,10 @@ public class CountryDAO {
 	public void deleteCity(City obj) { 
 	 	sessionFactory.getCurrentSession().delete(obj); 
 	 	 	}
+
+
+
+
 
 		
 }

@@ -25,6 +25,14 @@ import lombok.Setter;
 @Getter
 public class Planet implements Serializable {
 
+	public Planet () {
+	}
+	
+	
+	public Planet (String planet) {
+		this.planet = planet;
+	}
+	
 	
 	@Id
     @Column(name="id")
