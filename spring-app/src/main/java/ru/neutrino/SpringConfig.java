@@ -42,16 +42,10 @@ public class SpringConfig {
 	return new HibernateTransactionManager(sessionFac()); 
 	}
 
-	/*
-	@Bean
-	public SessionFactory sessionFac() {
-		return sessionFactory().getObject();
-		    }
-			
+	
 	
 	@Bean
-	public LocalSessionFactoryBean sessionFactory() {
-		
+	public SessionFactory sessionFac() throws IOException {
 		
 		Properties hibernateProperties = new Properties();
 	    hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQL94Dialect");
@@ -60,25 +54,8 @@ public class SpringConfig {
      	obj.setDataSource(dataSource);
      	obj.setPackagesToScan("ru.neutrino"); 
         obj.setHibernateProperties(hibernateProperties);
-     	 
-		return obj;
-		    }
-	
-	*/
-	
-	@Bean
-	public SessionFactory sessionFac() {
-		
-		Properties hibernateProperties = new Properties();
-	    hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQL94Dialect");
-	   				
-		LocalSessionFactoryBean obj = new LocalSessionFactoryBean();
-     	obj.setDataSource(dataSource);
-     	obj.setPackagesToScan("ru.neutrino"); 
-        obj.setHibernateProperties(hibernateProperties);
-        
-        
-		
+        obj.afterPropertiesSet();
+        		
 		return obj.getObject();
 		    }
 	

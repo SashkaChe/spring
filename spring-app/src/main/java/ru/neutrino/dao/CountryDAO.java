@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import ru.neutrino.model.*;
@@ -16,7 +17,7 @@ import org.hibernate.SessionFactory;
 public class CountryDAO  {
 
 
-	@Resource
+	@Autowired
 	private SessionFactory sessionFactory;
 
 	
