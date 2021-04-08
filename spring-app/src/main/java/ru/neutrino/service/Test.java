@@ -1,10 +1,11 @@
 package ru.neutrino.service;
 
+import java.sql.SQLException;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import ru.neutrino.EntityConfig;
 
-import java.sql.SQLException;
+import ru.neutrino.EntityConfig;
 
 
 
