@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.orm.jpa.EntityManagerFactoryAccessor;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -31,8 +32,9 @@ public class EntityConfig {
 	private DataSource dataSource;
 
 	@Bean 
+	@Primary
 	public PlatformTransactionManager transactionManager() { 
-	return new JpaTransactionManager(entityFactory());
+	return new JpaTransactionManager((EntityManagerFactory) entityFactory());
 	}
 
 	
@@ -45,7 +47,7 @@ public class EntityConfig {
 	
 	@Bean
 	@Primary
-	public EntityManagerFactory entityFactory() {
+	public EntityManagerFactoryAccessor entityFactory() {
 	
 		
 		Properties hibernateProperties = new Properties();
@@ -58,7 +60,7 @@ public class EntityConfig {
         factoryBean.setJpaVendorAdapter(jpaVendorAdapter()); 
         factoryBean.afterPropertiesSet(); 
       
-        return factoryBean.getNativeEntityManagerFactory(); 
+        return (EntityManagerFactoryAccessor) factoryBean.getNativeEntityManagerFactory(); 
 
 		    }
 

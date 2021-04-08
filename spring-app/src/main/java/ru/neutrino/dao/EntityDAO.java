@@ -14,7 +14,7 @@ import ru.neutrino.model.Sputnik;
 
 @Transactional
 @Repository
-public class EntityDAO {
+public class EntityDAO  {
 	
 	@PersistenceContext
 	private EntityManager entityManager;
