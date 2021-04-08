@@ -50,13 +50,13 @@ public class EntityConfig {
 	public EntityManagerFactoryAccessor entityFactory() {
 	
 		
-		Properties hibernateProperties = new Properties();
-	    hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQL94Dialect");
+	//	Properties hibernateProperties = new Properties();
+	 //   hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQL94Dialect");
 	    
         LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean(); 
         factoryBean.setPackagesToScan("ru.neutrino"); 
         factoryBean.setDataSource(dataSource); 
-        factoryBean.setJpaProperties(hibernateProperties); 
+    //    factoryBean.setJpaProperties(hibernateProperties); 
         factoryBean.setJpaVendorAdapter(jpaVendorAdapter()); 
         factoryBean.afterPropertiesSet(); 
       

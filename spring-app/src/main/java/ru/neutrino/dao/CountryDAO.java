@@ -60,5 +60,7 @@ public class CountryDAO  {
 	public void deleteCity(City obj) { 
 	 	sessionFactory.getCurrentSession().delete(obj); 
 	 	 	}
+	 	 	
+	 	 	
 
 }

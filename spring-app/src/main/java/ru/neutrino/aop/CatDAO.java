@@ -38,7 +38,7 @@ import lombok.Setter;
 @Setter
 public class CatDAO {
 	
-		
+	/*	
 	@Autowired 
 	private JdbcTemplate jdbc;
 
@@ -105,6 +105,6 @@ public class CatDAO {
 		jdbc.update("delete from Cat where id=?", new Object[] {id});
 	}
 	
-	
+	*/
 }
 

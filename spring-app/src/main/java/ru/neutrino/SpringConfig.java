@@ -30,7 +30,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @PropertySource("classpath:/datasource.properties")
 public class SpringConfig {
 
-	
+
 	
 	@Resource
 	private DataSource dataSource;
@@ -42,6 +42,7 @@ public class SpringConfig {
 	return new HibernateTransactionManager(sessionFac()); 
 	}
 
+	/*
 	@Bean
 	public SessionFactory sessionFac() {
 		return sessionFactory().getObject();
@@ -61,6 +62,24 @@ public class SpringConfig {
         obj.setHibernateProperties(hibernateProperties);
      	 
 		return obj;
+		    }
+	
+	*/
+	
+	@Bean
+	public SessionFactory sessionFac() {
+		
+		Properties hibernateProperties = new Properties();
+	    hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQL94Dialect");
+	   				
+		LocalSessionFactoryBean obj = new LocalSessionFactoryBean();
+     	obj.setDataSource(dataSource);
+     	obj.setPackagesToScan("ru.neutrino"); 
+        obj.setHibernateProperties(hibernateProperties);
+        
+        
+		
+		return obj.getObject();
 		    }
 	
 	
