@@ -2,6 +2,7 @@ package ru.neutrino.dao;
 
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -20,7 +21,7 @@ public class EntityDAO  {
 	@PersistenceContext
 	private EntityManager entityManager;
 	
-
+	
 	@Transactional(readOnly=true)
 	public List<Planet> allPlanets(){
 		return entityManager.createQuery("select c from Planet c").getResultList();

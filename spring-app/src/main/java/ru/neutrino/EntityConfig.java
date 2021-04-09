@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.EntityManagerFactoryAccessor;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
@@ -26,15 +27,15 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @PropertySource("classpath:/datasource.properties")
 @Import({SpringConfig.class, DataConfig.class })
 @ComponentScan(basePackages = "ru.neutrino")
+@EnableJpaRepositories(basePackages = "ru.neutrino.dao")
 public class EntityConfig {
 
 	@Resource
 	private DataSource dataSource;
 
 	@Bean 
-	@Primary
 	public PlatformTransactionManager transactionManager() { 
-	return new JpaTransactionManager((EntityManagerFactory) entityFactory());
+	return new JpaTransactionManager(entityFactory());
 	}
 
 	
@@ -47,11 +48,11 @@ public class EntityConfig {
 	
 	@Bean
 	@Primary
-	public EntityManagerFactoryAccessor entityFactory() {
+	public EntityManagerFactory entityFactory() {
 	
 		
 	//	Properties hibernateProperties = new Properties();
-	 //   hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQL94Dialect");
+	//    hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQL94Dialect");
 	    
         LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean(); 
         factoryBean.setPackagesToScan("ru.neutrino"); 
@@ -60,7 +61,7 @@ public class EntityConfig {
         factoryBean.setJpaVendorAdapter(jpaVendorAdapter()); 
         factoryBean.afterPropertiesSet(); 
       
-        return (EntityManagerFactoryAccessor) factoryBean.getNativeEntityManagerFactory(); 
+        return factoryBean.getNativeEntityManagerFactory(); 
 
 		    }
 
