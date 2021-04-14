@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import ru.neutrino.model.Planet;
 
-public interface JpaRepoPlanet extends JpaRepository<Planet, Integer>  {
+@Repository
+public interface JpaRepoPlanet extends JpaRepository<Planet, Long> {
 
 }

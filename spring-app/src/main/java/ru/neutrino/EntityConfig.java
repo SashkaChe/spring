@@ -21,11 +21,10 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-
 @EnableTransactionManagement
 @Configuration
 @PropertySource("classpath:/datasource.properties")
-@Import({SpringConfig.class, DataConfig.class })
+@Import({ SpringConfig.class, DataConfig.class })
 @ComponentScan(basePackages = "ru.neutrino")
 @EnableJpaRepositories(basePackages = "ru.neutrino.dao")
 public class EntityConfig {
@@ -33,37 +32,32 @@ public class EntityConfig {
 	@Resource
 	private DataSource dataSource;
 
-	@Bean 
-	public PlatformTransactionManager transactionManager() { 
-	return new JpaTransactionManager(entityFactory());
+	@Bean
+	public PlatformTransactionManager transactionManager() {
+		return new JpaTransactionManager(entityManagerFactory());
 	}
 
-	
-	
-	@Bean 
-	public JpaVendorAdapter jpaVendorAdapter() { 
-	return new HibernateJpaVendorAdapter(); 
-}
-			
-	
+	@Bean
+	public JpaVendorAdapter jpaVendorAdapter() {
+		return new HibernateJpaVendorAdapter();
+	}
+
 	@Bean
 	@Primary
-	public EntityManagerFactory entityFactory() {
-	
-		
-	//	Properties hibernateProperties = new Properties();
-	//    hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQL94Dialect");
-	    
-        LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean(); 
-        factoryBean.setPackagesToScan("ru.neutrino"); 
-        factoryBean.setDataSource(dataSource); 
-    //    factoryBean.setJpaProperties(hibernateProperties); 
-        factoryBean.setJpaVendorAdapter(jpaVendorAdapter()); 
-        factoryBean.afterPropertiesSet(); 
-      
-        return factoryBean.getNativeEntityManagerFactory(); 
+	public EntityManagerFactory entityManagerFactory() {
 
-		    }
+		Properties hibernateProperties = new Properties();
+		hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQL94Dialect");
 
-	
+		LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
+		factoryBean.setPackagesToScan("ru.neutrino");
+		factoryBean.setDataSource(dataSource);
+		factoryBean.setJpaProperties(hibernateProperties);
+		factoryBean.setJpaVendorAdapter(jpaVendorAdapter());
+		factoryBean.afterPropertiesSet();
+
+		return factoryBean.getNativeEntityManagerFactory();
+
+	}
+
 }
