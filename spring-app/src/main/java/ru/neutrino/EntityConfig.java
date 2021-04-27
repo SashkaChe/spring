@@ -13,7 +13,6 @@ import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.orm.jpa.EntityManagerFactoryAccessor;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -24,7 +23,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 @Configuration
 @PropertySource("classpath:/datasource.properties")
-@Import({ SpringConfig.class, DataConfig.class })
+@Import({ SpringConfig.class, DataConfig.class, ConversionConfig.class })
 @ComponentScan(basePackages = "ru.neutrino")
 @EnableJpaRepositories(basePackages = "ru.neutrino.dao")
 public class EntityConfig {
