@@ -30,7 +30,7 @@ public class ServicePlanet {
 		}
 	}
 
-	public Set<String> convers(List<String> obj) {
+	public Set<String> convListToSet(List<String> obj) {
 		return conversionService.convert(obj, HashSet.class);
 	}
 

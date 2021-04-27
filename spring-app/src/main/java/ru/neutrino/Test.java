@@ -17,7 +17,7 @@ public class Test {
 		ServicePlanet servplanet = (ServicePlanet) javaContext.getBean(ServicePlanet.class);
 
 		List<String> listString = Arrays.asList("a", "b", "c", "c", "d");
-		for (String string : servplanet.convers(listString))
-			System.out.println("Set: " + string);
+		servplanet.convListToSet(listString).forEach(System.out::println);
+
 	}
 }
