@@ -17,15 +17,17 @@ public class ConversionConfig {
 	@Bean
 	public ConversionServiceFactoryBean conversionService() {
 
-		Converter<Junior, Senior> obj = (n) -> {
+		Converter<Junior, Senior> obj = new Converter<Junior, Senior>() {
 
-			Senior sen = new Senior();
+			@Override
+			public Senior convert(Junior source) {
+				Senior sen = new Senior();
 
-			sen.setName(n.getName());
-			sen.setCompany(n.getCompany());
+				sen.setName(source.getName());
+				sen.setCompany(source.getCompany());
 
-			return sen;
-
+				return sen;
+			}
 		};
 
 		ConversionServiceFactoryBean conversionServiceFactoryBean = new ConversionServiceFactoryBean();
