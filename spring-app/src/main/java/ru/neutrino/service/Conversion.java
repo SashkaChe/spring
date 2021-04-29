@@ -1,11 +1,14 @@
 package ru.neutrino.service;
 
+import java.text.ParseException;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
+import org.springframework.format.Formatter;
 import org.springframework.stereotype.Component;
 
 import ru.neutrino.model.Junior;
@@ -23,6 +26,28 @@ public class Conversion {
 
 	public Senior convJuniorToSenior(Junior obj) {
 		return conversionService.convert(obj, Senior.class);
+	}
+
+	Formatter<Integer> format = new Formatter<Integer>() {
+
+		@Override
+		public Integer parse(String text, Locale locale) throws ParseException {
+			return Integer.valueOf(text.replace(" ", ""));
+		}
+
+		@Override
+		public String print(Integer integer, Locale locale) {
+			return "Integer: " + integer;
+		}
+
+	};
+
+	public Integer convStringToInteger(String obj, Locale locale) throws ParseException {
+		return format.parse(obj, locale);
+	}
+
+	public String convIntegerToString(Integer obj, Locale locale) throws ParseException {
+		return format.print(obj, locale);
 	}
 
 }
