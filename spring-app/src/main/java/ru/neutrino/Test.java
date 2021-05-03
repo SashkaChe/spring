@@ -22,12 +22,16 @@ public class Test {
 		List<String> listString = Arrays.asList("a", "b", "c", "c", "d");
 		convertobj.convListToSet(listString).forEach(System.out::println);
 
-		Junior obj = new Junior("Sashka", "Neutrino");
+		Junior obj = new Junior("Sashka", "Neutrino", 30);
+
+		Junior obj2 = new Junior();
 
 		System.out.println(convertobj.convJuniorToSenior(obj).toString());
 
 		System.out.println(convertobj.convStringToInteger("1 3 4", Locale.ENGLISH));
 		System.out.println(convertobj.convIntegerToString(5345, Locale.ENGLISH));
+
+		System.out.println(convertobj.validateJunior(obj));
 
 	}
 }

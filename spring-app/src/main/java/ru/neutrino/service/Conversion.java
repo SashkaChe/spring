@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validator;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.format.Formatter;
@@ -19,6 +22,9 @@ public class Conversion {
 
 	@Autowired
 	private ConversionService conversionService;
+
+	@Autowired
+	private Validator validator;
 
 	public Set<String> convListToSet(List<String> obj) {
 		return conversionService.convert(obj, HashSet.class);
@@ -48,6 +54,10 @@ public class Conversion {
 
 	public String convIntegerToString(Integer obj, Locale locale) throws ParseException {
 		return format.print(obj, locale);
+	}
+
+	public Set<ConstraintViolation<Junior>> validateJunior(Junior junior) {
+		return validator.validate(junior);
 	}
 
 }

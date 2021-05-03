@@ -7,12 +7,18 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ConversionServiceFactoryBean;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 import ru.neutrino.model.Junior;
 import ru.neutrino.model.Senior;
 
 @Configuration
 public class ConversionConfig {
+
+	@Bean
+	public LocalValidatorFactoryBean validator() {
+		return new LocalValidatorFactoryBean();
+	}
 
 	@Bean
 	public ConversionServiceFactoryBean conversionService() {
