@@ -17,6 +17,8 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -26,6 +28,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Import({ SpringConfig.class, DataConfig.class, ConversionConfig.class })
 @ComponentScan(basePackages = "ru.neutrino")
 @EnableJpaRepositories(basePackages = "ru.neutrino.dao")
+@EnableScheduling
+@EnableAsync
 public class EntityConfig {
 
 	@Resource
@@ -58,5 +62,12 @@ public class EntityConfig {
 		return factoryBean.getNativeEntityManagerFactory();
 
 	}
+
+	/*
+	 * @Scheduled(fixedRate = 5000) public void reportCurrentTime() {
+	 * System.out.println("Случайное число каждые 5 секунд " + Math.random() * 100);
+	 * }
+	 * 
+	 */
 
 }

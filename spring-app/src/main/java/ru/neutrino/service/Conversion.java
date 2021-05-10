@@ -11,7 +11,9 @@ import javax.validation.Validator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
+import org.springframework.core.task.TaskExecutor;
 import org.springframework.format.Formatter;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import ru.neutrino.model.Junior;
@@ -25,6 +27,9 @@ public class Conversion {
 
 	@Autowired
 	private Validator validator;
+
+	@Autowired
+	private TaskExecutor task;
 
 	public Set<String> convListToSet(List<String> obj) {
 		return conversionService.convert(obj, HashSet.class);
@@ -60,4 +65,15 @@ public class Conversion {
 		return validator.validate(junior);
 	}
 
+	@Async
+	public void asyncTask() {
+		for (int i = 1; i < 10; i++) {
+			try {
+				Thread.sleep((long) (Math.random() * 1000));
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			System.out.println("i = " + i);
+		}
+	}
 }
